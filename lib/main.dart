@@ -3,7 +3,11 @@ import 'package:webtoon/screens/home_screen.dart';
 // import 'package:webtoon/services/api_service.dart';
 
 void main() {
-  // ApiService().getTodayToons();
+  // ApiService().getTodayToons().then((value) {
+  //   for (var element in value) {
+  //     print(element.title);
+  //   }
+  // });
   runApp(const MyApp());
 }
 
