@@ -43,7 +43,16 @@ class HomeScreen extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: snapshot.data!.length, // overflow 방지
       itemBuilder: (context, index) {
-        return Text(snapshot.data![index].title);
+        var webtoon = snapshot.data![index];
+        return Column(
+          children: [
+            SizedBox(
+              width: 100,
+              child: Image.network(webtoon.thumb),
+            ),
+            Text(webtoon.title),
+          ],
+        );
       },
       separatorBuilder: (context, index) {
         return const SizedBox(width: 10);
