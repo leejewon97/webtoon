@@ -27,6 +27,31 @@ class DetailScreen extends StatelessWidget {
         backgroundColor: Colors.greenAccent[400],
         foregroundColor: Colors.white,
       ),
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 200,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.75),
+                      blurRadius: 10,
+                      offset: const Offset(5, 5),
+                    ),
+                  ],
+                ),
+                child: Image.network(webtoon.thumb),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

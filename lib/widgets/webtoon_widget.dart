@@ -18,6 +18,7 @@ class Webtoon extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => DetailScreen(webtoon: webtoon),
+            // fullscreenDialog: true, 뒤로가기 대신 닫기 버튼이 생김
           ),
         );
       },
