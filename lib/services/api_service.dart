@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:webtoon/models/webtoon_detail_model.dart';
+import 'package:webtoon/models/webtoon_episode_model.dart';
 import 'package:webtoon/models/webtoon_model.dart';
 
 class ApiService {
@@ -22,24 +24,25 @@ class ApiService {
     throw Exception('Failed to load today toons');
   }
 
-  static Future<WebtoonModel> getWebtoonDetail(String id) async {
+  static Future<WebtoonDetailModel> getWebtoonDetail(String id) async {
     final url = Uri.parse('$baseUrl/$id');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      return WebtoonModel.fromJson(jsonDecode(response.body));
+      return WebtoonDetailModel.fromJson(jsonDecode(response.body));
     }
     throw Exception('Failed to load webtoon($id) detail');
   }
 
-  static Future<List<WebtoonModel>> getLatestWebtoonEpisodes(String id) async {
+  static Future<List<WebtoonEpisodeModel>> getLatestWebtoonEpisodes(
+      String id) async {
     final url = Uri.parse('$baseUrl/$id/episodes');
     final response = await http.get(url);
-    final List<WebtoonModel> episodes = [];
+    final List<WebtoonEpisodeModel> episodes = [];
 
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((episode) {
-        episodes.add(WebtoonModel.fromJson(episode));
+        episodes.add(WebtoonEpisodeModel.fromJson(episode));
       });
       return episodes;
     }
