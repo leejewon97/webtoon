@@ -4,10 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:webtoon/models/webtoon_model.dart';
 
 class ApiService {
-  final String baseUrl = 'https://webtoon-crawler.nomadcoders.workers.dev';
-  final String today = 'today';
+  static const String baseUrl =
+      'https://webtoon-crawler.nomadcoders.workers.dev';
+  static const String today = 'today';
 
-  Future<List<WebtoonModel>> getTodayToons() async {
+  static Future<List<WebtoonModel>> getTodayToons() async {
     final url = Uri.parse('$baseUrl/$today');
     final response = await http.get(url);
     final List<WebtoonModel> webtoons = [];
@@ -18,6 +19,30 @@ class ApiService {
       });
       return webtoons;
     }
-    throw Exception('Failed to load data');
+    throw Exception('Failed to load today toons');
+  }
+
+  static Future<WebtoonModel> getWebtoonDetail(String id) async {
+    final url = Uri.parse('$baseUrl/$id');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      return WebtoonModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('Failed to load webtoon($id) detail');
+  }
+
+  static Future<List<WebtoonModel>> getLatestWebtoonEpisodes(String id) async {
+    final url = Uri.parse('$baseUrl/$id/episodes');
+    final response = await http.get(url);
+    final List<WebtoonModel> episodes = [];
+
+    if (response.statusCode == 200) {
+      jsonDecode(response.body).forEach((episode) {
+        episodes.add(WebtoonModel.fromJson(episode));
+      });
+      return episodes;
+    }
+    throw Exception('Failed to load webtoon($id) episodes');
   }
 }
