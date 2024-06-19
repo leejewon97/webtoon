@@ -45,63 +45,87 @@ class _DetailScreenState extends State<DetailScreen> {
         backgroundColor: Colors.greenAccent[400],
         foregroundColor: Colors.white,
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20,
+          ),
+          child: Column(
             children: [
-              Hero(
-                tag: widget.webtoon.id,
-                child: Container(
-                  width: 200,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.75),
-                        blurRadius: 10,
-                        offset: const Offset(5, 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Hero(
+                    tag: widget.webtoon.id,
+                    child: Container(
+                      width: 200,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.75),
+                            blurRadius: 10,
+                            offset: const Offset(5, 5),
+                          ),
+                        ],
                       ),
-                    ],
+                      child: Image.network(widget.webtoon.thumb),
+                    ),
                   ),
-                  child: Image.network(widget.webtoon.thumb),
-                ),
+                ],
+              ),
+              const SizedBox(height: 28),
+              FutureBuilder(
+                future: webtoonDetail,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: [
+                        Text(
+                          '${snapshot.data!.genre} / ${snapshot.data!.age}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Text(
+                            snapshot.data!.about,
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return const Text('...');
+                },
+              ),
+              const SizedBox(height: 20),
+              FutureBuilder(
+                future: episodes,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: [
+                        for (var episode in snapshot.data!)
+                          Text(
+                            episode.title,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                      ],
+                    );
+                  }
+                  return const CircularProgressIndicator();
+                },
               ),
             ],
           ),
-          const SizedBox(height: 28),
-          FutureBuilder(
-            future: webtoonDetail,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Column(
-                  children: [
-                    Text(
-                      '${snapshot.data!.genre} / ${snapshot.data!.age}',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: Text(
-                        snapshot.data!.about,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }
-              return const CircularProgressIndicator();
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

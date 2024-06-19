@@ -42,7 +42,9 @@ class ApiService {
 
     if (response.statusCode == 200) {
       jsonDecode(response.body).forEach((episode) {
-        episodes.add(WebtoonEpisodeModel.fromJson(episode));
+        if (episodes.length < 10) {
+          episodes.add(WebtoonEpisodeModel.fromJson(episode));
+        }
       });
       return episodes;
     }
