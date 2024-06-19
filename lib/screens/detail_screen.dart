@@ -49,6 +49,7 @@ class _DetailScreenState extends State<DetailScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 20,
+            horizontal: 48,
           ),
           child: Column(
             children: [
@@ -90,13 +91,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 32),
-                          child: Text(
-                            snapshot.data!.about,
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
+                        Text(
+                          snapshot.data!.about,
+                          style: const TextStyle(
+                            fontSize: 16,
                           ),
                         ),
                       ],
@@ -113,9 +111,41 @@ class _DetailScreenState extends State<DetailScreen> {
                     return Column(
                       children: [
                         for (var episode in snapshot.data!)
-                          Text(
-                            episode.title,
-                            style: const TextStyle(fontSize: 20),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.greenAccent[400],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 5,
+                                  offset: const Offset(5, 5),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            margin: const EdgeInsets.only(
+                              bottom: 10,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  episode.title,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const Icon(
+                                  Icons.keyboard_double_arrow_right_rounded,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
                           ),
                       ],
                     );
