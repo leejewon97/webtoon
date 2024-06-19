@@ -113,8 +113,11 @@ class _DetailScreenState extends State<DetailScreen> {
                         for (var episode in snapshot.data!)
                           Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.greenAccent[400]!,
+                              ),
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.greenAccent[400],
+                              color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.25),
@@ -135,14 +138,14 @@ class _DetailScreenState extends State<DetailScreen> {
                               children: [
                                 Text(
                                   episode.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.white,
+                                    color: Colors.greenAccent[400],
                                   ),
                                 ),
-                                const Icon(
+                                Icon(
                                   Icons.keyboard_double_arrow_right_rounded,
-                                  color: Colors.white,
+                                  color: Colors.greenAccent[400],
                                 ),
                               ],
                             ),
