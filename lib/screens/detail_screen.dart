@@ -3,6 +3,7 @@ import 'package:webtoon/models/webtoon_detail_model.dart';
 import 'package:webtoon/models/webtoon_episode_model.dart';
 import 'package:webtoon/models/webtoon_model.dart';
 import 'package:webtoon/services/api_service.dart';
+import 'package:webtoon/widgets/episode_widget.dart';
 
 class DetailScreen extends StatefulWidget {
   final WebtoonModel webtoon;
@@ -111,45 +112,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     return Column(
                       children: [
                         for (var episode in snapshot.data!)
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.greenAccent[400]!,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.25),
-                                  blurRadius: 5,
-                                  offset: const Offset(5, 5),
-                                ),
-                              ],
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 10,
-                            ),
-                            margin: const EdgeInsets.only(
-                              bottom: 10,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  episode.title,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.greenAccent[400],
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.keyboard_double_arrow_right_rounded,
-                                  color: Colors.greenAccent[400],
-                                ),
-                              ],
-                            ),
-                          ),
+                          Episode(episode: episode),
                       ],
                     );
                   }

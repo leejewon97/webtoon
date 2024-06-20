@@ -41,4 +41,12 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+        <!-- Provide required visibility configuration for API level 30 and above -->
+    <queries>
+        <!-- If your app checks for HTTPS support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 </manifest>
