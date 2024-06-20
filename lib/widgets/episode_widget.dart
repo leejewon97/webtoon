@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webtoon/models/webtoon_episode_model.dart';
+import 'package:webtoon/models/webtoon_model.dart';
 
 class Episode extends StatelessWidget {
   const Episode({
     super.key,
     required this.episode,
+    required this.webtoon,
   });
 
   final WebtoonEpisodeModel episode;
+  final WebtoonModel webtoon;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        launchUrlString("https://www.naver.com");
+      onTap: () async {
+        await launchUrlString(
+          "https://m.comic.naver.com/webtoon/detail?titleId=${webtoon.id}&no=${episode.id}",
+          mode: LaunchMode.inAppWebView,
+        );
       },
       child: Container(
         decoration: BoxDecoration(
